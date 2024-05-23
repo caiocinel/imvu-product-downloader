@@ -28,15 +28,15 @@ export class ProductExtractor {
 			const buffer = await this.download(`${id}/${revision}/${url}`);
 			const type = await imageType(buffer);
 
-			if (!type) {
-				zip.file(file.name, buffer);
-			} else {
-				if (!file.name.endsWith(type.ext)) {
-					file.name += `.${type.ext}`;
-				}
+			//if (!type) {
+			zip.file(file.name, buffer);
+			// } else {
+			// 	if (!file.name.endsWith(type.ext)) {
+			// 		file.name += `.${type.ext}`;
+			// 	}
 
-				zip.file(file.name, buffer);
-			}
+			// 	zip.file(file.name, buffer);
+			// }
 		}
 
 		return zip.generateAsync({ type: 'nodebuffer' });
