@@ -1,5 +1,4 @@
 import type { ResponseType } from 'axios';
-import imageType from 'image-type';
 import JSZip from 'jszip';
 
 import axios from 'axios';
@@ -26,17 +25,9 @@ export class ProductExtractor {
 		for (const file of files) {
 			const url = file.url ?? file.name;
 			const buffer = await this.download(`${id}/${revision}/${url}`);
-			const type = await imageType(buffer);
-
-			//if (!type) {
+			
 			zip.file(file.name, buffer);
-			// } else {
-			// 	if (!file.name.endsWith(type.ext)) {
-			// 		file.name += `.${type.ext}`;
-			// 	}
-
-			// 	zip.file(file.name, buffer);
-			// }
+			
 		}
 
 		return zip.generateAsync({ type: 'nodebuffer' });
